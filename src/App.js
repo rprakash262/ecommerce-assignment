@@ -1,11 +1,36 @@
-import './App.css';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-function App() {
+import './App.css';
+import { ACTIONS } from './reducers/mainReducer';
+
+function App({ text, loadingData, items, init }) {
+  useEffect(() => {
+    init();
+  }, [])
+
   return (
     <div className="App">
-      Hello World
+      {loadingData && <div>Loading data...</div>}
+      {!loadingData && (
+        <div>Items</div>
+      )}
     </div>
   );
 }
 
-export default App;
+const mapState = state => {
+  const { main } = state;
+
+  return {
+    loadingData: main.loadingData,
+    text: main.text,
+    items: main.items,
+  }
+}
+
+const mapDispatch = {
+  init: ACTIONS.init,
+}
+
+export default connect(mapState, mapDispatch)(App);
