@@ -16,7 +16,9 @@ const init = () => async (dispatch) => {
 	const { success, result } = data;
 
 	if (success) {
-		dispatch(setItems(result));
+		const itemsArr = [];
+		Object.values(result.items).forEach(item => itemsArr.push(...item))
+		dispatch(setItems(itemsArr));
 		dispatch(toggleLoadingData(false));
 	}
 }

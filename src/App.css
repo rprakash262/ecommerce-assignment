@@ -1,0 +1,41 @@
+/*one item*/
+
+.oneItemCard {
+	width: 200px;
+	height: auto;
+	border: 1px solid gray;
+	border-radius: 5px;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+.oneItemCardImg {
+	width: 100%;
+	height: 200px;
+	background-color: gray;
+}
+
+.oneItemCardImg img {
+	width: 100%;
+	height: 100%;
+}
+
+.oneItemCard h4 {
+	font-size: 15px;
+	text-align: center;
+	font-weight: 500;
+}
+
+.oneItemCard button {
+	width: 100%;
+	height: 30px;
+	cursor: pointer;
+	font-size: 15px;
+	border-radius: 4px;
+	background-color: #b1bfc1;
+	border: none;
+}
+
+.oneItemCard button:focus {
+	border: 1px solid gray;
+}

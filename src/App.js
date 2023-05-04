@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import './App.css';
 import { ACTIONS } from './reducers/mainReducer';
+import OneItem from './components/OneItem';
 
 function App({ text, loadingData, items, init }) {
   useEffect(() => {
@@ -13,7 +14,11 @@ function App({ text, loadingData, items, init }) {
     <div className="App">
       {loadingData && <div>Loading data...</div>}
       {!loadingData && (
-        <div>Items</div>
+        <div>
+          {items.length > 0 && items.map(item => (
+              <OneItem key={item.id} item={item} />
+          ))}
+        </div>
       )}
     </div>
   );
