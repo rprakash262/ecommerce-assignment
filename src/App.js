@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import './App.css';
@@ -6,6 +6,7 @@ import { ACTIONS } from './reducers/mainReducer';
 import OneItem from './components/OneItem';
 import Header from './components/Header';
 import Cart from './components/Cart';
+import CustomCheckout from './components/CustomCheckout';
 
 function App({
   view,
@@ -18,13 +19,12 @@ function App({
   selectTab,
   addToCart,
   goToCart,
-  removeItemFromCart
+  removeItemFromCart,
+  startCheckout
 }) {
   useEffect(() => {
     init();
   }, [])
-
-  console.log({cartItems})
 
   return (
     <div className="App">
@@ -35,32 +35,34 @@ function App({
         selectTab={selectTab}
         goToCart={goToCart}
       />
-      <div>
-        {view === 'main' && (
-          <div className="container">
-            {loadingData && <div>Loading data...</div>}
-            {!loadingData && (
-              <div>
-                {items.length > 0 && items.map(item => (
-                    <OneItem
-                      key={item.id}
-                      item={item}
-                      addToCart={addToCart}
-                      cartItems={cartItems}
-                    />
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-        {view === 'cart' && (
-          <div className="container">
-            <Cart
-              cartItems={cartItems}
-              removeItemFromCart={removeItemFromCart}
-            />
-          </div>
-        )}
+        <div className="container">
+          {view === 'main' && (
+            <React.Fragment>
+              {loadingData && <div>Loading data...</div>}
+              {!loadingData && (
+                <div>
+                  {items.length > 0 && items.map(item => (
+                      <OneItem
+                        key={item.id}
+                        item={item}
+                        addToCart={addToCart}
+                        cartItems={cartItems}
+                      />
+                  ))}
+                </div>
+              )}
+            </React.Fragment>
+          )}
+          {view === 'cart' && (
+              <Cart
+                cartItems={cartItems}
+                removeItemFromCart={removeItemFromCart}
+                startCheckout={startCheckout}
+              />
+          )}
+          {view === 'checkout' && (
+            <CustomCheckout />
+          )}
       </div>
     </div>
   );
@@ -84,7 +86,8 @@ const mapDispatch = {
   selectTab: ACTIONS.selectTab,
   addToCart: ACTIONS.addToCart,
   goToCart: ACTIONS.goToCart,
-  removeItemFromCart: ACTIONS.removeItemFromCart
+  removeItemFromCart: ACTIONS.removeItemFromCart,
+  startCheckout: ACTIONS.startCheckout,
 }
 
 export default connect(mapState, mapDispatch)(App);

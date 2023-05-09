@@ -1,4 +1,4 @@
-import { IoCloseSharp, IoCartOutline } from 'react-icons/io5'
+import { IoCartOutline } from 'react-icons/io5'
 
 function getTotal (cartItems) {
   let total = 0
@@ -7,7 +7,7 @@ function getTotal (cartItems) {
   return total;
 }
 
-function Cart ({ cartItems, removeItemFromCart }) {
+function Cart ({ cartItems, removeItemFromCart, startCheckout }) {
   return (
     <div className="cart">
       {cartItems.length === 0 && (
@@ -37,7 +37,7 @@ function Cart ({ cartItems, removeItemFromCart }) {
           ))}
           <div className="checkout">
             <span>Total: {getTotal(cartItems)}</span>
-            <button>Checkout</button>
+            <button onClick={startCheckout}>Checkout</button>
           </div>
         </div>
       )}

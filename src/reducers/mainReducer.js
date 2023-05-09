@@ -1,4 +1,5 @@
 import { cloneDeep } from 'lodash';
+import * as CheckoutSDK from "@bambora/checkout-sdk-web";
 
 const TOGGLE_LOADING_DATA = 'main/TOGGLE_LOADING_DATA';
 const SET_RESULT = 'main/SET_RESULT';
@@ -57,7 +58,7 @@ const selectTab = tab => (dispatch, getState) => {
   dispatch(setSelectedTab(tab));
   dispatch(setItems(itemsArr));
 
-  if (view === 'cart') {
+  if (view !== 'main') {
     dispatch(setView('main'));
   }
 }
@@ -83,12 +84,9 @@ const removeItemFromCart = itemId => (dispatch, getState) => {
 
   const clonedCartItems = cloneDeep(cartItems);
 
-  const x = clonedCartItems.filter(item => item.id !== itemId);
+  const filteredCartItems = clonedCartItems.filter(item => item.id !== itemId);
 
-  console.log({x, clonedCartItems})
-    // console.log(index)
-  // clonedCartItems.splice(index, 1);
-  dispatch(setCartItems(x));
+  dispatch(setCartItems(filteredCartItems));
 }
 
 export const ACTIONS = {
@@ -97,6 +95,7 @@ export const ACTIONS = {
   addToCart,
   goToCart,
   removeItemFromCart,
+  startCheckout: () => setView('checkout')
 }
 
 function mainReducer (state = defaultState, action) {
