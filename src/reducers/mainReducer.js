@@ -43,6 +43,28 @@ const init = () => async dispatch => {
     dispatch(setHeaderItems(headerItems));
     dispatch(toggleLoadingData(false));
   }
+
+  // console.log(CheckoutSDK.InlineCheckout());
+  const dataa = {
+    "order": {
+      "id": "123",
+      "amount": 9900,
+      "currency": "EUR"
+    }
+  }
+
+  const ress = await fetch('https://api.v1.checkout.bambora.com/sessions', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify(dataa)
+  })
+
+  const json = await res.json();
+  console.log({json})
+  // var customCheckout = customcheckout();
 }
 
 const selectTab = tab => (dispatch, getState) => {
